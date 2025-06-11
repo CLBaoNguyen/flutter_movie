@@ -10,12 +10,12 @@ class ApiClient {
 
   final HttpClient Function() _clientFactory;
 
-  Future<Result<List<Movie>>> getMovies() async {
+  Future<Result<List<Movie>>> getMovies(String query) async {
     final client = _clientFactory();
     try {
       final request = await client.getUrl(
         Uri.parse(
-          'https://itunes.apple.com/search?country=au&media=movie&;all&term=star',
+          'https://itunes.apple.com/search?country=au&media=movie&;all&term=$query',
         ),
       );
       final HttpClientResponse response = await request.close();

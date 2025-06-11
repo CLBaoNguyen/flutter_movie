@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/routing/router.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import 'config/dependencies.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: providers, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +36,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: ''),
-          NavigationDestination(icon: Icon(Icons.favorite), label: '')
+          NavigationDestination(icon: Icon(Icons.favorite), label: ''),
         ],
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: _goBranch,

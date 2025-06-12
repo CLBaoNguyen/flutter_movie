@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/routing/routes.dart';
+import 'package:flutter_movie/ui/detail/detail_screen.dart';
 import 'package:flutter_movie/ui/favorite/favorite_screen.dart';
 import 'package:flutter_movie/ui/home/widgets/home_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../data/services/api/model/movie.dart';
 import '../main.dart';
 import '../ui/home/view_models/home_viewmodel.dart';
 
@@ -19,6 +21,12 @@ GoRouter router = GoRouter(
   initialLocation: Routes.home,
   debugLogDiagnostics: true,
   routes: <RouteBase>[
+    GoRoute(
+      path: Routes.detail,
+      builder: (context, state) {
+        return DetailScreen(movie: state.extra as Movie);
+      },
+    ),
     StatefulShellRoute.indexedStack(
       builder:
           (

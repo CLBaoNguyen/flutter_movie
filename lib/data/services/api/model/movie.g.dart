@@ -10,7 +10,7 @@ _Movie _$MovieFromJson(Map<String, dynamic> json) => _Movie(
   trackId: (json['trackId'] as num).toInt(),
   trackName: json['trackName'] as String,
   artworkUrl100: json['artworkUrl100'] as String,
-  longDescription: json['longDescription'] as String,
+  longDescription: json['longDescription'] as String?,
   currency: json['currency'] as String,
   primaryGenreName: json['primaryGenreName'] as String,
   trackPrice: (json['trackPrice'] as num).toDouble(),

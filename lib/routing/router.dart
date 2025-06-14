@@ -3,12 +3,14 @@ import 'package:flutter_movie/routing/routes.dart';
 import 'package:flutter_movie/ui/detail/detail_screen.dart';
 import 'package:flutter_movie/ui/favorite/favorite_screen.dart';
 import 'package:flutter_movie/ui/home/widgets/home_screen.dart';
+import 'package:flutter_movie/ui/search/view_models/search_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../data/services/api/model/movie.dart';
 import '../main.dart';
 import '../ui/home/view_models/home_viewmodel.dart';
+import '../ui/search/widgets/search_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -48,7 +50,15 @@ GoRouter router = GoRouter(
                 );
                 return HomeScreen(viewModel: viewModel);
               },
-              routes: <RouteBase>[],
+              routes: <RouteBase>[
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: Routes.search,
+                  builder: (BuildContext context, GoRouterState state) {
+                    return SearchScreen(searchViewModel: context.read());
+                  },
+                ),
+              ],
             ),
           ],
         ),

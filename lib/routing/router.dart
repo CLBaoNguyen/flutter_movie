@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/routing/routes.dart';
 import 'package:flutter_movie/ui/detail/detail_screen.dart';
-import 'package:flutter_movie/ui/favorite/favorite_screen.dart';
+import 'package:flutter_movie/ui/favorite/widgets/favorite_screen.dart';
 import 'package:flutter_movie/ui/home/widgets/home_screen.dart';
-import 'package:flutter_movie/ui/search/view_models/search_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../data/services/api/model/movie.dart';
 import '../main.dart';
+import '../ui/favorite/view_models/favorite_viewmodel.dart';
 import '../ui/home/view_models/home_viewmodel.dart';
 import '../ui/search/widgets/search_screen.dart';
 
@@ -47,6 +47,7 @@ GoRouter router = GoRouter(
               builder: (BuildContext context, GoRouterState state) {
                 final viewModel = HomeViewModel(
                   movieRepository: context.read(),
+                  movieDatabase: context.read()
                 );
                 return HomeScreen(viewModel: viewModel);
               },
@@ -67,7 +68,8 @@ GoRouter router = GoRouter(
             GoRoute(
               path: Routes.favorite,
               builder: (BuildContext context, GoRouterState state) {
-                return const FavoriteScreen();
+                final viewModel = FavoriteViewModel(movieDatabase: context.read());
+                return FavoriteScreen(viewModel: viewModel);
               },
               routes: <RouteBase>[],
             ),

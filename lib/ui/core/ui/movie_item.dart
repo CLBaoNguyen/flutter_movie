@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie/data/services/api/model/movie.dart';
 
 class MovieItem extends StatelessWidget {
-  const MovieItem({super.key, required this.movie, this.onFavorite, this.onMovieClicked});
+  const MovieItem({
+    super.key,
+    required this.movie,
+    this.onFavorite,
+    this.onMovieClicked,
+    this.isFavorite = false,
+  });
 
   final Movie movie;
+  final bool isFavorite;
   final VoidCallback? onFavorite;
   final VoidCallback? onMovieClicked;
 
@@ -64,7 +71,9 @@ class MovieItem extends StatelessWidget {
             const SizedBox(width: 8),
             onFavorite != null
                 ? IconButton(
-                    icon: const Icon(Icons.favorite),
+                    icon: isFavorite
+                        ? const Icon(Icons.favorite)
+                        : const Icon(Icons.favorite_border),
                     onPressed: onFavorite,
                   )
                 : const SizedBox.shrink(),

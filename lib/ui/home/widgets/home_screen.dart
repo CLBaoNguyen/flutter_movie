@@ -49,16 +49,33 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
 
-            return ListView.separated(
-              separatorBuilder: (_, _) => const SizedBox(height: 8),
-              itemCount: widget.viewModel.movies.length,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              itemBuilder: (context, index) {
-                final movie = widget.viewModel.movies[index];
-                return MovieItem(movie: movie, onFavorite: () {}, onMovieClicked: () => context.push(Routes.detail, extra: movie),);
-              },
-            );
+            return child!;
           },
+          child: ListenableBuilder(
+            listenable: widget.viewModel,
+            builder: (context, _) {
+              return ListView.separated(
+                separatorBuilder: (_, _) => const SizedBox(height: 8),
+                itemCount: widget.viewModel.movies.length,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
+                itemBuilder: (context, index) {
+                  final movie = widget.viewModel.movies[index];
+                  return MovieItem(
+                    movie: movie,
+                    onFavorite: () {
+                      widget.viewModel.onFavoriteToggle(movie);
+                    },
+                    onMovieClicked: () =>
+                        context.push(Routes.detail, extra: movie),
+                    isFavorite: widget.viewModel.favorites.contains(movie),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

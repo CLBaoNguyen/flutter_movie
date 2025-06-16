@@ -25,9 +25,10 @@ class SearchViewModel extends ChangeNotifier {
   final SharedPreferenceService _sharedPreferenceService;
 
   List<Movie> _movies = [];
-  List<String> _recentSearches = [];
 
   List<Movie> get movies => _movies;
+
+  List<String> _recentSearches = [];
 
   List<String> get recentSearches => _recentSearches;
 
@@ -70,10 +71,5 @@ class SearchViewModel extends ChangeNotifier {
 
   void search(String query) {
     _searchStreamController.add(query);
-  }
-
-  void onDispose() {
-    _searchStreamController.close();
-    super.dispose();
   }
 }

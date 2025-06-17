@@ -16,7 +16,7 @@ class MovieDatabase {
 
   Stream<List<Movie>> get moviesStream => _moviesStream.stream;
 
-  Future<Database> get database async {
+  Future<Database> get _db async {
     if (_database != null) {
       return _database!;
     }
@@ -51,7 +51,7 @@ class MovieDatabase {
   }
 
   Future<void> insertMovie(Movie movie) async {
-    final db = await database;
+    final db = await _db;
     await db.insert(
       'movies',
       movie.toJson(),
@@ -61,13 +61,13 @@ class MovieDatabase {
   }
 
   Future<void> deleteMovie(int trackId) async {
-    final db = await database;
+    final db = await _db;
     await db.delete('movies', where: 'trackId = ?', whereArgs: [trackId]);
     _notifyMoviesStream();
   }
 
   Future<void> _notifyMoviesStream() async {
-    final db = await database;
+    final db = await _db;
     final movies = await db
         .query('movies')
         .then((maps) => maps.map((map) => Movie.fromJson(map)).toList());

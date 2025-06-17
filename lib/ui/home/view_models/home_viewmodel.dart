@@ -12,14 +12,14 @@ class HomeViewModel extends ChangeNotifier {
     required MovieDatabase movieDatabase,
   }) : _movieRepository = movieRepository,
        _movieDatabase = movieDatabase {
-    load = Command0(_load)..execute();
+    load = Command1(_load)..execute("star");
     _subscribeToFavorites();
   }
 
   final MovieRepository _movieRepository;
   final MovieDatabase _movieDatabase;
 
-  late Command0 load;
+  late Command1<List<Movie>, String> load;
 
   List<Movie> _movies = [];
 
@@ -29,9 +29,9 @@ class HomeViewModel extends ChangeNotifier {
 
   List<Movie> get favorites => _favorites;
 
-  Future<Result<List<Movie>>> _load() async {
+  Future<Result<List<Movie>>> _load(String query) async {
     try {
-      final result = await _movieRepository.getMovies();
+      final result = await _movieRepository.getMovies(query: query);
       switch (result) {
         case Ok<List<Movie>>():
           _movies = result.value;

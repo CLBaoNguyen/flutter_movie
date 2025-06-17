@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/ui/core/ui/appbar_title_richtext.dart';
 import 'package:flutter_movie/ui/core/ui/movie_item.dart';
 import 'package:flutter_movie/ui/search/view_models/search_viewmodel.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: Text("Search")),
+      appBar: AppBar(title: AppbarTitleRichText(title: "Search")),
       body: Column(
         children: [
           Padding(
@@ -60,9 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         SliverToBoxAdapter(
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              "Recent Searches"
-                            ),
+                            child: Text("Recent Searches"),
                           ),
                         ),
                         SliverList(

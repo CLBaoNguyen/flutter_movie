@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/data/services/api/api_client.dart';
+import 'package:flutter_movie/ui/core/ui/appbar_title_richtext.dart';
 import 'package:flutter_movie/ui/home/view_models/home_viewmodel.dart';
 import 'package:flutter_movie/ui/core/ui/movie_item.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: AppbarTitleRichText(title: "Home"),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),

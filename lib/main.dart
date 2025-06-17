@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/routing/router.dart';
+import 'package:flutter_movie/ui/core/themes/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: AppColors.lightColorScheme,
       ),
       routerConfig: router,
     );
@@ -34,9 +35,20 @@ class ScaffoldWithNavBar extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
+        indicatorColor: Colors.transparent,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: ''),
-          NavigationDestination(icon: Icon(Icons.favorite), label: ''),
+          NavigationDestination(
+            icon: _isSelected(0)
+                ? Icon(Icons.home, color: Colors.amberAccent)
+                : Icon(Icons.home_outlined),
+            label: '',
+          ),
+          NavigationDestination(
+            icon: _isSelected(1)
+                ? Icon(Icons.favorite, color: Colors.amberAccent)
+                : Icon(Icons.favorite_border),
+            label: '',
+          ),
         ],
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: _goBranch,
@@ -49,5 +61,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
       index,
       initialLocation: index == navigationShell.currentIndex,
     );
+  }
+
+  bool _isSelected(int index) {
+    return navigationShell.currentIndex == index;
   }
 }

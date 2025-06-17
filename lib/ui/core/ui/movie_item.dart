@@ -75,6 +75,7 @@ class MovieItem extends StatelessWidget {
                         ? const Icon(Icons.favorite)
                         : const Icon(Icons.favorite_border),
                     onPressed: onFavorite,
+                    color: isFavorite ? Colors.amberAccent : Colors.white,
                   )
                 : const SizedBox.shrink(),
           ],

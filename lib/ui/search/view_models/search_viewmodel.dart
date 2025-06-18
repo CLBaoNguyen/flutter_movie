@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_movie/data/repository/movie/movie_repository.dart';
 import 'package:flutter_movie/data/shared_preference_service.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../data/services/api/model/movie.dart';
 import '../../../util/command.dart';
@@ -51,15 +52,18 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   void _subscribeToQueryChanges() {
-    _searchStreamController.stream.distinct().listen((query) {
-      if (query.isNotEmpty) {
-        load.execute(query);
-        _sharedPreferenceService.addRecentSearch(query);
-      } else {
-        _movies = [];
-        notifyListeners();
-      }
-    });
+    _searchStreamController.stream
+        .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
+        .distinct()
+        .listen((query) {
+          if (query.isNotEmpty) {
+            load.execute(query);
+            _sharedPreferenceService.addRecentSearch(query);
+          } else {
+            _movies = [];
+            notifyListeners();
+          }
+        });
   }
 
   void _subscribeToRecentSearches() {

@@ -46,8 +46,7 @@ GoRouter router = GoRouter(
               path: Routes.home,
               builder: (BuildContext context, GoRouterState state) {
                 final viewModel = HomeViewModel(
-                  movieRepository: context.read(),
-                  movieDatabase: context.read()
+                  movieRepository: context.read()
                 );
                 return HomeScreen(viewModel: viewModel);
               },
@@ -68,7 +67,7 @@ GoRouter router = GoRouter(
             GoRoute(
               path: Routes.favorite,
               builder: (BuildContext context, GoRouterState state) {
-                final viewModel = FavoriteViewModel(movieDatabase: context.read());
+                final viewModel = FavoriteViewModel(movieRepository: context.read());
                 return FavoriteScreen(viewModel: viewModel);
               },
               routes: <RouteBase>[],

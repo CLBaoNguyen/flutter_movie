@@ -4,20 +4,14 @@ import 'package:flutter_movie/data/services/api/model/movie.dart';
 import 'package:flutter_movie/util/command.dart';
 import 'package:flutter_movie/util/result.dart';
 
-import '../../../data/movie_database.dart';
-
 class HomeViewModel extends ChangeNotifier {
-  HomeViewModel({
-    required MovieRepository movieRepository,
-    required MovieDatabase movieDatabase,
-  }) : _movieRepository = movieRepository,
-       _movieDatabase = movieDatabase {
+  HomeViewModel({required MovieRepository movieRepository})
+    : _movieRepository = movieRepository {
     load = Command1(_load)..execute("star");
     _subscribeToFavorites();
   }
 
   final MovieRepository _movieRepository;
-  final MovieDatabase _movieDatabase;
 
   late Command1<List<Movie>, String> load;
 
@@ -45,18 +39,18 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void _subscribeToFavorites() {
-    _movieDatabase.moviesStream.listen((movies) {
+    _movieRepository.favoritesStream.listen((movies) {
       _favorites = movies;
       notifyListeners();
     });
-    _movieDatabase.loadInitialMovies();
+    _movieRepository.loadFavorites();
   }
 
   void onFavoriteToggle(Movie movie) {
     if (_favorites.contains(movie)) {
-      _movieDatabase.deleteMovie(movie.trackId);
+      _movieRepository.deleteFavorite(movie.trackId);
     } else {
-      _movieDatabase.insertMovie(movie);
+      _movieRepository.insertFavorite(movie);
     }
   }
 }

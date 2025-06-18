@@ -2,17 +2,13 @@ import 'package:flutter_movie/ui/home/view_models/home_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../testing/fakes/repositories/fake_movie_repository.dart';
-import '../../testing/fakes/services/fake_movie_database.dart';
 
 void main() {
   late HomeViewModel homeViewModel;
 
   group("HomeViewModel test", () {
     setUp(() {
-      homeViewModel = HomeViewModel(
-        movieRepository: FakeMovieRepository(),
-        movieDatabase: FakeMovieDatabase(),
-      );
+      homeViewModel = HomeViewModel(movieRepository: FakeMovieRepository());
     });
 
     test("initial state", () {

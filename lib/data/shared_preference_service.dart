@@ -22,10 +22,10 @@ class SharedPreferenceService {
       final recentSearches =
           sharedPreferences.getStringList(_recentSearchesKey) ?? [];
       if (!recentSearches.contains(search)) {
-        final newSearches = recentSearches.toList();
-        newSearches.add(search);
+        recentSearches.insert(0, search);
+        final newSearches = recentSearches.take(5).toList();
         await sharedPreferences.setStringList(_recentSearchesKey, newSearches);
-        _recentSearchesController.add(newSearches.reversed.take(5).toList());
+        _recentSearchesController.add(newSearches);
       }
 
       return const Result.ok(null);

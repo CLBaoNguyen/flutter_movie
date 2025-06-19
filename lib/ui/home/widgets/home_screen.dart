@@ -1,3 +1,4 @@
+import 'package:easy_load_more/easy_load_more.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/data/services/api/api_client.dart';
 import 'package:flutter_movie/ui/core/ui/appbar_title_richtext.dart';
@@ -55,25 +56,32 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListenableBuilder(
             listenable: widget.viewModel,
             builder: (context, _) {
-              return ListView.separated(
-                separatorBuilder: (_, _) => const SizedBox(height: 8),
-                itemCount: widget.viewModel.movies.length,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                itemBuilder: (context, index) {
-                  final movie = widget.viewModel.movies[index];
-                  return MovieItem(
-                    movie: movie,
-                    onFavorite: () {
-                      widget.viewModel.onFavoriteToggle(movie);
+              return RefreshIndicator(
+                onRefresh: () => widget.viewModel.load.execute("star"),
+                child: EasyLoadMore(
+                  isFinished: widget.viewModel.movies.length >= 200,
+                  onLoadMore: () => widget.viewModel.onLoadMore(),
+                  child: ListView.separated(
+                    separatorBuilder: (_, _) => const SizedBox(height: 8),
+                    itemCount: widget.viewModel.movies.length,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                    itemBuilder: (context, index) {
+                      final movie = widget.viewModel.movies[index];
+                      return MovieItem(
+                        movie: movie,
+                        onFavorite: () {
+                          widget.viewModel.onFavoriteToggle(movie);
+                        },
+                        onMovieClicked: () =>
+                            context.push(Routes.detail, extra: movie),
+                        isFavorite: widget.viewModel.favorites.contains(movie),
+                      );
                     },
-                    onMovieClicked: () =>
-                        context.push(Routes.detail, extra: movie),
-                    isFavorite: widget.viewModel.favorites.contains(movie),
-                  );
-                },
+                  ),
+                ),
               );
             },
           ),

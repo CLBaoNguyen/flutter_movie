@@ -28,7 +28,7 @@ class HomeViewModel extends ChangeNotifier {
       final result = await _movieRepository.getMovies(query: query);
       switch (result) {
         case Ok<List<Movie>>():
-          _movies = result.value;
+          _movies = List.of(result.value);
           return result;
         case Error<List<Movie>>():
           return Result.error(result.error);
@@ -51,6 +51,17 @@ class HomeViewModel extends ChangeNotifier {
       _movieRepository.deleteFavorite(movie.trackId);
     } else {
       _movieRepository.insertFavorite(movie);
+    }
+  }
+
+  Future<bool> onLoadMore() async {
+    final result = await _movieRepository.getMovies(query: "harry");
+    if (result is Ok<List<Movie>>) {
+      _movies.addAll(result.value);
+      notifyListeners();
+      return true;
+    } else {
+      return false;
     }
   }
 }

@@ -52,5 +52,16 @@ void main() {
       homeViewModel.onFavoriteToggle(movie);
       expect(homeViewModel.favorites.length, 0);
     });
+
+    test("load more movies", () async {
+      // wait for the initial load
+      await Future.delayed(
+        Duration(seconds: FakeMovieRepository.delayInSeconds),
+      );
+
+      await homeViewModel.onLoadMore();
+
+      expect(homeViewModel.movies.length, 4);
+    });
   });
 }

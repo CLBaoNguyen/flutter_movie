@@ -1,16 +1,33 @@
-# flutter_movie
+# Movie app
+An Android demo app built with Flutter.
 
-A new Flutter project.
+# Feature
+![Movie_app](docs/app_overview.png "Movie app")
 
-## Getting Started
+**Home screen**
+- Display list of movie
+- Favorite/ Unfavorite a movie
+- Pull to refresh the movie list
+- Load more movies when scrolling to the end of the list
 
-This project is a starting point for a Flutter application.
+**Search screen**
+- Search movies based on input query
+- Show recent search queries
 
-A few resources to get you started if this is your first Flutter project:
+**Favorite screen**
+- Display list of favorite movies
+- Swipe to remove a movie from the favorite list
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Detail screen**
+- Show a movie detail 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Project structure inspired from [Compass app](https://github.com/flutter/samples/tree/main/compass_app)
+
+# Architecture
+- [MVVM (Model-View-ViewModel)](https://docs.flutter.dev/app-architecture/guide#mvvm) architecture pattern, which helps separate concerns and makes the codebase easier to test and maintain
+- [Provider](https://pub.dev/packages/provider) for state management and dependency injection
+
+# Persistence
+- [sqflite](https://pub.dev/packages/sqflite): persist structured data `Movie`, save and remove favorite movie in Favorite Screen,
+  make it possible to show the favorite list even when the app has no connection
+- [shared_preferences](https://pub.dev/packages/shared_preferences): save recent search queries to display on the Search screen

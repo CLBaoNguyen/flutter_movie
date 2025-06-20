@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_movie/util/result.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {
   static const String _recentSearchesKey = 'recent_searches';
 
-  final StreamController<List<String>> _recentSearchesController =
-      StreamController<List<String>>();
+  final BehaviorSubject<List<String>> _recentSearchesController =
+      BehaviorSubject<List<String>>();
 
   Stream<List<String>> get recentSearchesStream =>
       _recentSearchesController.stream;

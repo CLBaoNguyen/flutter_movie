@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_movie/data/movie_database.dart';
+import 'package:flutter_movie/data/services/movie_database.dart';
 import 'package:flutter_movie/data/services/api/model/movie.dart';
 
 class FakeMovieDatabase implements MovieDatabase {

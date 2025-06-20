@@ -1,4 +1,4 @@
-import 'package:flutter_movie/data/movie_database.dart';
+import 'package:flutter_movie/data/services/movie_database.dart';
 import 'package:flutter_movie/data/repository/movie/movie_repository.dart';
 import 'package:flutter_movie/data/services/api/model/movie.dart';
 import 'package:flutter_movie/util/result.dart';

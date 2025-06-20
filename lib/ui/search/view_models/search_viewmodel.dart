@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_movie/data/repository/movie/movie_repository.dart';
-import 'package:flutter_movie/data/shared_preference_service.dart';
+import 'package:flutter_movie/data/services/shared_preference_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../data/services/api/model/movie.dart';
